@@ -41,22 +41,14 @@ cd backend
 npm install
 npx prisma db push
 npm run dev
-```
-*Backend runs at: [http://localhost:4000](http://localhost:4000)*
 
 ### 3. Frontend Setup
 ```bash
 cd frontend
 npm install
 npm run dev
-```
-*Frontend runs at: [http://localhost:3000](http://localhost:3000)*
 
----
-
-## 📂 Project Structure
-
-```text
+### 4. Project Structure
 faceaccess-v3/
 ├── backend/
 │   ├── src/
@@ -71,11 +63,18 @@ faceaccess-v3/
     │   ├── components/    # Reusable Camera & UI components
     │   └── lib/           # API Client & Helpers
     └── public/            # AI Model weights
-```
 
-## 📜 License
-Internal Hackathon Project. All rights reserved.
+License
+
+Internal Hackathon Project. All rights reserved
+
 
 ---
 
-*Built with ❤️ by the Antigravity AI Team.*
+### ✅ Now run (final steps)
+```bash
+git add README.md
+git commit -m "Resolve README merge conflict"
+git push -u origin main
+
+
