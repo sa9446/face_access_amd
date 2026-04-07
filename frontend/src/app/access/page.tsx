@@ -10,6 +10,7 @@ export default function AccessPage() {
     const [status, setStatus] = useState<'idle' | 'processing' | 'success' | 'denied'>('idle');
     const [message, setMessage] = useState('');
     const [userData, setUserData] = useState<any>(null);
+    const [confidence, setConfidence] = useState<number | null>(null);
 
     const handleCapture = async (descriptor: number[]) => {
         setStatus('processing');
@@ -19,6 +20,7 @@ export default function AccessPage() {
                 setStatus('success');
                 setMessage(result.message);
                 setUserData(result.user);
+                setConfidence(result.confidence || null);
 
                 // Reset after 5 seconds
                 setTimeout(() => {
@@ -71,6 +73,15 @@ export default function AccessPage() {
                                         <span className="text-2xl font-bold text-blue-600">{userData.loyaltyPoints}</span>
                                         <span className="text-xs font-bold text-slate-500">POINTS</span>
                                     </div>
+                                    {confidence !== null && (
+                                        <>
+                                            <div className="h-8 w-px bg-slate-200"></div>
+                                            <div className="flex flex-col items-center">
+                                                <span className="text-2xl font-bold text-green-600">{confidence}%</span>
+                                                <span className="text-xs font-bold text-slate-500">MATCH</span>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         )}
@@ -82,7 +93,12 @@ export default function AccessPage() {
                         <p className="text-lg text-red-700">{message}</p>
                     </div>
                 ) : (
-                    <Camera onCapture={handleCapture} label="Verify and Enter" />
+                    <>
+                        <Camera onCapture={handleCapture} livenessMode={true} />
+                        <p className="text-xs text-slate-400 mt-2 text-center max-w-xs">
+                            Liveness check active — blink once to authenticate
+                        </p>
+                    </>
                 )}
             </div>
         </div>

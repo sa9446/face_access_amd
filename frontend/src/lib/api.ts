@@ -27,5 +27,5 @@ export const processAccess = (descriptor: number[]) =>
 export const getStats = () =>
     api.get('/stats');
 
-export const getUsers = () =>
-    api.get('/users');
+export const getUsers = (page = 1, limit = 20) =>
+    api.get(`/users?page=${page}&limit=${limit}`);

@@ -1,80 +1,109 @@
-# 🚀 FaceAccess V3
+# FaceAccess V3
 
-**FaceAccess V3** is a high-performance, premium facial recognition access and loyalty system. It has been completely rebuilt from the ground up to offer a seamless "face-as-a-key" experience with a robust loyalty program integration.
+**FaceAccess V3** is a facial recognition access and loyalty system. It offers a "face-as-a-key" experience with a built-in loyalty program integration.
 
-## ✨ Key Features
+---
 
-- **Local Face Detection**: Ultra-fast browser-side descriptor generation using `face-api.js`.
-- **Intelligent Access**: Instant building access verification based on mathematical face vector comparison.
-- **Loyalty Program**: Automatically earn points and level up through tiers (**Bronze, Silver, Gold, Platinum**) with every check-in.
+## Key Features
+
+- **Local Face Detection**: Browser-side descriptor generation using `face-api.js` — no raw images sent to server.
+- **Intelligent Access**: Building access verification based on face vector comparison.
+- **Loyalty Program**: Earn points and level up through tiers (Bronze, Silver, Gold, Platinum) on every check-in.
 - **Admin Dashboard**: Real-time analytics, user distribution, and system health monitoring.
-- **Zero-Config Database**: Powered by SQLite for immediate "plug-and-play" functionality.
+- **Zero-Config Database**: SQLite — no external database setup required.
 
 ---
 
-## 🏗️ Technical Architecture
+## Technical Stack
 
-### **The Stack**
-- **Frontend**: [Next.js 15+](https://nextjs.org/) (App Router, Turbopack)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) (Premium Glassmorphism Design)
-- **Backend**: [Express.js](https://expressjs.com/) (TypeScript + ESM)
-- **ORM**: [Prisma 6](https://www.prisma.io/)
-- **Database**: [SQLite](https://sqlite.org/)
-- **AI/ML Engine**: Browser-side [face-api.js](https://github.com/vladmandic/face-api)
-
-### **Why this architecture?**
-1. **Privacy & Speed**: Face descriptors are generated locally in the user's browser. We never send raw images to the server—only encrypted-like mathematical embeddings.
-2. **Stability**: By moving the AI heavy-lifting to the client, the backend remains extremely lightweight and avoids common Windows-native dependency conflicts.
-3. **Scale**: The system is designed to handle thousands of users with sub-second response times.
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js 16 (App Router, Turbopack) |
+| Styling | Tailwind CSS |
+| Backend | Express.js (TypeScript + ESM) |
+| ORM | Prisma 6 |
+| Database | SQLite (`backend/dev.db`) |
+| AI/ML | Browser-side `face-api.js` + `@vladmandic/face-api` |
 
 ---
 
-## 🚦 Getting Started
+## Project Location
 
-### 1. Prerequisites
-- [Node.js 20+](https://nodejs.org/)
-- [npm](https://www.npmjs.com/)
+```
+C:\Users\HP\Documents\GitHub\face_access_amd_temp\
+├── backend\
+│   ├── src\
+│   │   ├── controllers\   # Business logic for Users & Access
+│   │   ├── routes\        # API Endpoints
+│   │   └── services\      # Facial matching algorithms
+│   ├── prisma\            # Schema & SQLite Database
+│   ├── dev.db             # SQLite database file
+│   └── .env               # Server config (PORT=4000, DATABASE_URL)
+└── frontend\
+    ├── src\
+    │   ├── app\           # Next.js Pages (Register, Access, Dashboard)
+    │   ├── components\    # Reusable Camera & UI components
+    │   └── lib\           # API Client & Helpers
+    └── public\            # AI Model weights
+```
 
-### 2. Backend Setup
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js 20+
+- npm
+
+### First-Time Setup
+
 ```bash
-cd backend
+# Backend
+cd "C:\Users\HP\Documents\GitHub\face_access_amd_temp\backend"
 npm install
 npx prisma db push
-npm run dev
 
-### 3. Frontend Setup
-```bash
-cd frontend
+# Frontend
+cd "C:\Users\HP\Documents\GitHub\face_access_amd_temp\frontend"
 npm install
+```
+
+### Running the App
+
+**Terminal 1 — Backend (port 4000):**
+```bash
+cd "C:\Users\HP\Documents\GitHub\face_access_amd_temp\backend"
 npm run dev
+```
 
-### 4. Project Structure
-faceaccess-v3/
-├── backend/
-│   ├── src/
-│   │   ├── controllers/   # Business logic for Users & Access
-│   │   ├── routes/        # API Endpoints
-│   │   └── services/      # Facial matching algorithms
-│   ├── prisma/             # Schema & SQLite Database
-│   └── .env               # Server configuration
-└── frontend/
-    ├── src/
-    │   ├── app/           # Next.js Pages (Register, Access, Dashboard)
-    │   ├── components/    # Reusable Camera & UI components
-    │   └── lib/           # API Client & Helpers
-    └── public/            # AI Model weights
+**Terminal 2 — Frontend (port 3000):**
+```bash
+cd "C:\Users\HP\Documents\GitHub\face_access_amd_temp\frontend"
+npm run dev
+```
 
-License
+### URLs
 
-Internal Hackathon Project. All rights reserved
+| Service | URL |
+|---|---|
+| Frontend | http://localhost:3000 |
+| Backend API | http://localhost:4000 |
 
+> Note: If port 3000 is occupied, Next.js will automatically use 3001.
 
 ---
 
-### ✅ Now run (final steps)
-```bash
-git add README.md
-git commit -m "Resolve README merge conflict"
-git push -u origin main
+## Environment
 
+Backend `.env` defaults:
+```
+DATABASE_URL=file:./dev.db
+PORT=4000
+NODE_ENV=development
+```
 
+---
+
+## License
+
+Internal Hackathon Project. All rights reserved.

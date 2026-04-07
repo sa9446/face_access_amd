@@ -11,9 +11,9 @@ export default function DashboardPage() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const [statsData, usersData] = await Promise.all([getStats(), getUsers()]);
+                const [statsData, usersData] = await Promise.all([getStats(), getUsers(1, 10)]);
                 setStats(statsData);
-                setUsers(usersData);
+                setUsers(usersData.users || []);
             } catch (err) {
                 console.error('Error fetching dashboard data:', err);
             } finally {
@@ -48,8 +48,8 @@ export default function DashboardPage() {
                 {[
                     { label: 'Total Members', value: stats?.totalUsers || 0, icon: '👥' },
                     { label: 'Access Events', value: stats?.totalAccessEvents || 0, icon: '🚪' },
-                    { label: 'Average Daily', value: Math.round((stats?.totalAccessEvents || 0) / 7), icon: '📈' },
-                    { label: 'Wait Time (avg)', value: '0.8s', icon: '⚡' },
+                    { label: 'Today', value: stats?.todayAccessEvents || 0, icon: '📈' },
+                    { label: 'Success Rate', value: `${stats?.successRate || 0}%`, icon: '⚡' },
                 ].map((stat, i) => (
                     <div key={i} className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
                         <div className="text-3xl mb-4">{stat.icon}</div>
@@ -67,9 +67,9 @@ export default function DashboardPage() {
                         {Object.entries(stats?.tierDistribution || {}).map(([tier, count]) => (
                             <div key={tier} className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className={`w-3 h-3 rounded-full ${tier === 'Platinum' ? 'bg-indigo-500' :
-                                            tier === 'Gold' ? 'bg-yellow-500' :
-                                                tier === 'Silver' ? 'bg-slate-400' : 'bg-orange-500'
+                                    <div className={`w-3 h-3 rounded-full ${tier === 'PLATINUM' ? 'bg-indigo-500' :
+                                            tier === 'GOLD' ? 'bg-yellow-500' :
+                                                tier === 'SILVER' ? 'bg-slate-400' : 'bg-orange-500'
                                         }`}></div>
                                     <span className="font-semibold text-slate-700">{tier}</span>
                                 </div>
